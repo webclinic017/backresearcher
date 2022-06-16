@@ -3,6 +3,8 @@ import backtrader as bt  # 导入 Backtrader
 import backtrader.indicators as btind  # 导入指标分析模块
 import backtrader.feeds as btfeeds  # 导入数据模块
 
+from strategy.BollBandsStrategy import BollBandsStrategy
+
 
 class TestStrategy(bt.Strategy):
     def __init__(self):
@@ -41,10 +43,10 @@ cerebro.adddata(data)
 cerebro.broker.setcash(35000)
 cerebro.broker.setcommission(0.0003)
 
-cerebro.signal_accumulate(True)
-cerebro.signal_concurrency(True)
+# cerebro.signal_accumulate(True)
+# cerebro.signal_concurrency(True)
 
-cerebro.addstrategy(TestStrategy)
+cerebro.addstrategy(BollBandsStrategy)
 # 回测启动运行
 cerebro.run()
 # cerebro.plot(dpi=300)
