@@ -5,22 +5,8 @@ import backtrader.feeds as btfeeds  # 导入数据模块
 
 from strategy.BollBandsStrategy import BollBandsStrategy
 
-
-class TestStrategy(bt.Strategy):
-    def __init__(self):
-        print("--------- 打印 self 策略本身的 lines ----------")
-        print(self.lines.getlinealiases())
-
-        print("--------- 指标计算 ----------")
-        self.boll = btind.BollingerBands(self.data.close)
-
-    def next(self):
-        # print('验证索引位置为 6 的线是不是 datetime')
-        print(self.data.close[0])
-
-
 data = bt.feeds.GenericCSVData(
-    dataname="../resource/feed/Test.csv",
+    dataname="../resource/feed/BTC-USDT-SWAP1m.csv",
     fromdate=datetime.strptime("2020-05-31 23:59:00", "%Y-%m-%d %H:%M:%S"),  # 起止日期
     todate=datetime.strptime("2022-06-05 20:08:00", "%Y-%m-%d %H:%M:%S"),
     nullvalue=0.0,
@@ -49,4 +35,5 @@ cerebro.broker.setcommission(0.0003)
 cerebro.addstrategy(BollBandsStrategy)
 # 回测启动运行
 cerebro.run()
+print('组合期末资金: %.2f' % cerebro.broker.getvalue())
 # cerebro.plot(dpi=300)
