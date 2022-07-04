@@ -18,7 +18,7 @@ class BollBandsStrategy(AdvanceBaseStrategy):
         super().__init__()
         self.boll = btind.BollingerBands(self.data.close, period=60)  # boll
         self.atr = btind.AverageTrueRange(self.data, period=60)  # atr
-        self.rsi = btind.RelativeStrengthIndex(self.data.close, period=20)
+        self.rsi = btind.RelativeStrengthIndex(self.data.close, period=3)
         self.close_cross_down_top = bt.And(self.data.close(-1) > self.boll.top(-1), self.data.close(0) < self.boll.top(0))
         self.close_cross_over_top = bt.And(self.data.close(-1) < self.boll.top(-1), self.data.close(0) > self.boll.top(0))
         self.close_cross_down_bot = bt.And(self.data.close(-1) > self.boll.bot(-1), self.data.close(0) < self.boll.bot(0))
@@ -33,11 +33,11 @@ class BollBandsStrategy(AdvanceBaseStrategy):
         # close cross down top,open short
         if self.close_cross_down_top[0]:
             brackets = self.sell_bracket(price=self.data.close[0], size=3000 / self.data.close[0],
-                                         limitprice=self.data.close[0] - 2 * self.atr.atr[0],
-                                         stopprice=self.data.high[0] * 1.02)
+                                         limitprice=self.data.close[0] - 1.5 * self.atr.atr[0],
+                                         stopprice=self.data.high[0] * 1.05)
 
         # close cross up bot,open long
         if self.close_cross_over_bot[0]:
             brackets = self.buy_bracket(price=self.data.close[0], size=3000 / self.data.close[0],
-                                        limitprice=self.data.close[0] + 2 * self.atr.atr[0],
-                                        stopprice=self.data.low[0] * 0.98)
+                                        limitprice=self.data.close[0] + 1.5 * self.atr.atr[0],
+                                        stopprice=self.data.low[0] * 0.95)

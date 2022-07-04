@@ -3,11 +3,12 @@ import backtrader as bt  # 导入 Backtrader
 import backtrader.indicators as btind  # 导入指标分析模块
 import backtrader.feeds as btfeeds  # 导入数据模块
 
+from strategy.RsiStrategy import RsiStrategy
 from strategy.BollBandsStrategy import BollBandsStrategy
 
 data = bt.feeds.GenericCSVData(
-    dataname="../resource/feed/BTC-USDT-SWAP-week.csv",
-    fromdate=datetime.strptime("2022-06-27 00:01:00", "%Y-%m-%d %H:%M:%S"),  # 起止日期
+    dataname="../resource/feed/BTC-USDT-SWAP5m.csv",
+    fromdate=datetime.strptime("2020-06-01 00:01:00", "%Y-%m-%d %H:%M:%S"),  # 起止日期
     todate=datetime.strptime("2022-06-28 20:50:00", "%Y-%m-%d %H:%M:%S"),
     nullvalue=0.0,
     dtformat="%Y-%m-%d %H:%M:%S",  # 日期列的格式
@@ -32,7 +33,7 @@ cerebro.broker.setcommission(0.0004)
 # cerebro.signal_accumulate(True)
 # cerebro.signal_concurrency(True)
 
-cerebro.addstrategy(BollBandsStrategy)
+cerebro.addstrategy(RsiStrategy)
 # 回测启动运行
 cerebro.run()
 print('组合期末资金: %.2f' % cerebro.broker.getvalue())
