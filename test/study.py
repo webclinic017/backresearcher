@@ -8,7 +8,7 @@ from strategy.BollBandsStrategy import BollBandsStrategy
 
 data = bt.feeds.GenericCSVData(
     dataname="../resource/feed/BTC-USDT-SWAP5m.csv",
-    fromdate=datetime.strptime("2020-06-01 00:01:00", "%Y-%m-%d %H:%M:%S"),  # 起止日期
+    fromdate=datetime.strptime("2022-06-01 00:01:00", "%Y-%m-%d %H:%M:%S"),  # 起止日期
     todate=datetime.strptime("2022-06-28 20:50:00", "%Y-%m-%d %H:%M:%S"),
     nullvalue=0.0,
     dtformat="%Y-%m-%d %H:%M:%S",  # 日期列的格式

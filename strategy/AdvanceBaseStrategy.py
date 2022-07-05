@@ -26,32 +26,32 @@ class AdvanceBaseStrategy(bt.Strategy):
 
         print("%s %s" % (self.datas[0].datetime.date(0), s))
 
-    def notify_order(self, order):
-        if order.status in [order.Submitted, order.Accepted]:
-            return
-
-        if order.status in [order.Completed]:
-
-            if order.isbuy():
-                self.log(
-                    'Buy, price: %.2f, value: %.2f, commission %.2f' %
-                    (order.executed.price,
-                     order.executed.value,
-                     order.executed.comm))
-
-                self.buyprice = order.executed.price
-                self.buycomm = order.executed.comm
-            elif order.issell():
-                self.log('Sell, price: %.2f, value: %.2f, commission %.2f' %
-                         (order.executed.price,
-                          order.executed.value,
-                          order.executed.comm))
-            # 记录当前交易数量
-            self.bar_executed = len(self)
-
-        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log(self.order_status.get(order.status))
-        self.order = None
+    # def notify_order(self, order):
+    #     if order.status in [order.Submitted, order.Accepted]:
+    #         return
+    #
+    #     if order.status in [order.Completed]:
+    #
+    #         if order.isbuy():
+    #             self.log(
+    #                 'Buy, price: %.2f, value: %.2f, commission %.2f' %
+    #                 (order.executed.price,
+    #                  order.executed.value,
+    #                  order.executed.comm))
+    #
+    #             self.buyprice = order.executed.price
+    #             self.buycomm = order.executed.comm
+    #         elif order.issell():
+    #             self.log('Sell, price: %.2f, value: %.2f, commission %.2f' %
+    #                      (order.executed.price,
+    #                       order.executed.value,
+    #                       order.executed.comm))
+    #         # 记录当前交易数量
+    #         self.bar_executed = len(self)
+    #
+    #     elif order.status in [order.Canceled, order.Margin, order.Rejected]:
+    #         self.log(self.order_status.get(order.status))
+    #     self.order = None
 
     def notify_trade(self, trade):
         if not trade.isclosed:
